@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>McMurtry College | Rice University</title>
+  <meta name="description" content="McMurtry College - Rice University's tenth residential college. Where community thrives, est. 2009.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0C2340',
+            gold: '#C4A55A',
+            cream: '#FAF8F5',
+            'warm-gray': '#E8E3DD',
+            brick: '#6B3A2A',
+            'text-main': '#1C1C1C',
+            'text-light': '#6B6B6B',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    :root {
+      --navy: #0C2340;
+      --gold: #C4A55A;
+      --cream: #FAF8F5;
+      --warm-gray: #E8E3DD;
+      --brick: #6B3A2A;
+      --text: #1C1C1C;
+      --text-light: #6B6B6B;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .font-sans { font-family: 'Inter', system-ui, sans-serif; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); }
+
+    /* Nav transition */
+    #navbar { transition: background-color 0.5s ease, box-shadow 0.5s ease; }
+    .nav-solid { background-color: var(--navy) !important; box-shadow: 0 1px 20px rgba(0,0,0,0.15); }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* Scroll indicator */
+    @keyframes scrollDown {
+      0% { transform: translateY(0); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateY(20px); opacity: 0; }
+    }
+    .scroll-indicator::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.4);
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+
+    /* Resource cards */
+    .resource-link {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    }
+    .resource-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      color: var(--gold);
+    }
+
+    /* Image loading */
+    img {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    img.loaded {
+      opacity: 1;
+    }
+
+    /* Selection color */
+    ::selection {
+      background: var(--gold);
+      color: white;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 3px; }
+
+    /* Mobile nav toggle */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* Feature card gold border */
+    .feature-card { border-top: 2px solid var(--gold); }
+
+    /* Asymmetric grid for community section */
+    .community-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .community-grid {
+        grid-template-columns: 1.2fr 1fr;
+        grid-template-rows: 1fr 1fr;
+      }
+      .community-featured {
+        grid-row: 1 / 3;
+      }
+    }
+
+    /* Hero text shadow for legibility */
+    .hero-text-shadow {
+      text-shadow: 0 2px 40px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body class="bg-white antialiased">
+
+  <!-- ============================================ -->
+  <!-- NAVIGATION -->
+  <!-- ============================================ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 py-5 flex items-center justify-between">
+      <a href="#" class="font-serif text-white text-xl md:text-2xl tracking-wide">McMurtry College</a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="text-white/80 text-xs uppercase tracking-[0.2em] font-medium hover:text-white transition-colors duration-300">About</a>
+        <a href="#architecture" class="text-white/80 text-xs uppercase tracking-[0.2em] font-medium hover:text-white transition-colors duration-300">Architecture</a>
+        <a href="#community" class="text-white/80 text-xs uppercase tracking-[0.2em] font-medium hover:text-white transition-colors duration-300">Community</a>
+        <a href="#innovation" class="text-white/80 text-xs uppercase tracking-[0.2em] font-medium hover:text-white transition-colors duration-300">Innovation</a>
+        <a href="#resources" class="text-white/80 text-xs uppercase tracking-[0.2em] font-medium hover:text-white transition-colors duration-300">Resources</a>
+      </div>
+
+      <!-- Mobile Nav Toggle -->
+      <button id="mobileToggle" class="md:hidden text-white focus:outline-none" aria-label="Toggle navigation">
+        <span class="block w-6 h-0.5 bg-white mb-1.5 transition-all duration-300" id="bar1"></span>
+        <span class="block w-6 h-0.5 bg-white mb-1.5 transition-all duration-300" id="bar2"></span>
+        <span class="block w-4 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 bg-navy z-40 flex flex-col items-center justify-center gap-8 md:hidden">
+      <button id="mobileClose" class="absolute top-5 right-6 text-white focus:outline-none" aria-label="Close navigation">
+        <span class="block w-6 h-0.5 bg-white rotate-45 translate-y-0.5"></span>
+        <span class="block w-6 h-0.5 bg-white -rotate-45 -translate-y-0"></span>
+      </button>
+      <a href="#about" class="mobile-nav-link text-white text-2xl font-serif tracking-wide">About</a>
+      <a href="#architecture" class="mobile-nav-link text-white text-2xl font-serif tracking-wide">Architecture</a>
+      <a href="#community" class="mobile-nav-link text-white text-2xl font-serif tracking-wide">Community</a>
+      <a href="#innovation" class="mobile-nav-link text-white text-2xl font-serif tracking-wide">Innovation</a>
+      <a href="#resources" class="mobile-nav-link text-white text-2xl font-serif tracking-wide">Resources</a>
+    </div>
+  </nav>
+
+  <!-- ============================================ -->
+  <!-- HERO SECTION -->
+  <!-- ============================================ -->
+  <section class="relative h-screen w-full overflow-hidden">
+    <!-- Background Image -->
+    <img
+      src="https://images.unsplash.com/photo-1562774053-701939374585?w=1920&q=80&fit=crop"
+      alt="University columns in warm light"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+      onload="this.classList.add('loaded')"
+    >
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0C2340] via-[#0C2340]/60 to-transparent"></div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 h-full flex items-end max-w-7xl mx-auto px-6 md:px-8 pb-24 md:pb-28">
+      <div class="hero-text-shadow">
+        <p class="text-gold uppercase tracking-[0.3em] text-sm mb-4 font-medium">Rice University</p>
+        <h1 class="font-serif text-white text-7xl md:text-8xl lg:text-9xl leading-none mb-2">McMurtry</h1>
+        <p class="font-serif text-white/60 text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">College</p>
+        <p class="text-white/50 text-lg max-w-lg leading-relaxed">Where community thrives. Rice's tenth residential college, est. 2009.</p>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 scroll-indicator"></div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- ABOUT SECTION -->
+  <!-- ============================================ -->
+  <section id="about" class="py-24 md:py-32 px-6 md:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="reveal">
+        <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4 font-medium">About</p>
+        <h2 class="font-serif text-navy text-4xl md:text-5xl lg:text-6xl mb-12 leading-tight">A Community Built<br>on Connection</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+        <!-- Text Column -->
+        <div class="reveal reveal-delay-1">
+          <p class="text-lg leading-relaxed text-text-light mb-8">
+            McMurtry College opened in fall 2009 as Rice University's tenth residential college. Designed by the acclaimed Hopkins Architects, the building achieved LEED Gold certification, setting a new standard for sustainable campus living.
+          </p>
+          <p class="text-lg leading-relaxed text-text-light">
+            Named for Burt and Deedee McMurtry, Rice Class of 1956, the college features a distinctive horseshoe-shaped plan surrounding a central courtyard. Rising five stories, McMurtry offers residents a campfire pit, rooftop terrace with sweeping Houston skyline views, kitchens on every level, a teahouse, game room, music room, gym, and the only circular commons on campus.
+          </p>
+        </div>
+
+        <!-- Image Column -->
+        <div class="reveal reveal-delay-2">
+          <img
+            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&q=80&fit=crop"
+            alt="Sunlit campus walkway with tree-lined paths"
+            class="w-full h-full min-h-[400px] object-cover rounded-sm"
+            loading="lazy"
+            onload="this.classList.add('loaded')"
+          >
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12 border-t border-warm-gray reveal">
+        <div class="reveal-delay-1">
+          <p class="font-serif text-navy text-3xl md:text-4xl mb-2">2009</p>
+          <p class="text-text-light text-sm uppercase tracking-wide">Founded</p>
+        </div>
+        <div class="reveal-delay-1">
+          <p class="font-serif text-navy text-3xl md:text-4xl mb-2">LEED Gold</p>
+          <p class="text-text-light text-sm uppercase tracking-wide">Certified</p>
+        </div>
+        <div class="reveal-delay-2">
+          <p class="font-serif text-navy text-3xl md:text-4xl mb-2">5 Stories</p>
+          <p class="text-text-light text-sm uppercase tracking-wide">of Community</p>
+        </div>
+        <div class="reveal-delay-3">
+          <p class="font-serif text-navy text-3xl md:text-4xl mb-2">10th</p>
+          <p class="text-text-light text-sm uppercase tracking-wide">Residential College</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- ARCHITECTURE SECTION -->
+  <!-- ============================================ -->
+  <section id="architecture">
+    <!-- Full-bleed Image with Overlay -->
+    <div class="relative h-[60vh] md:h-[70vh] overflow-hidden">
+      <img
+        src="https://images.adsttc.com/media/images/5016/62c9/28ba/0d14/1600/07b3/large_jpg/stringio.jpg?1414467948"
+        alt="McMurtry and Duncan Colleges architectural design by Hopkins Architects"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+        onload="this.classList.add('loaded')"
+      >
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0C2340]/90 via-[#0C2340]/50 to-transparent"></div>
+
+      <div class="relative z-10 h-full flex flex-col justify-center max-w-xl px-8 md:px-16">
+        <div class="reveal">
+          <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4 font-medium">Architecture</p>
+          <h2 class="font-serif text-white text-4xl md:text-5xl mb-6 leading-tight">Hopkins Architects</h2>
+          <p class="text-white/70 text-lg leading-relaxed">
+            Drawing inspiration from Rice's signature Italian Romanesque style, adapted for the Texas coastal plain. The brick facades echo the rich character of historic campus structures, while thick exterior walls provide high thermal mass. Shaded arcades and covered walkways weave seamlessly with existing tree-lined paths.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture Features Row -->
+    <div class="bg-navy py-16 px-6 md:px-8">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-10 md:gap-12">
+        <div class="feature-card pt-6 reveal reveal-delay-1">
+          <h3 class="font-serif text-white text-xl mb-4">Sustainable Design</h3>
+          <p class="text-white/60 leading-relaxed">Double-brick walls with high thermal mass reduce energy consumption. Green roofs and native landscaping minimize environmental impact.</p>
+        </div>
+        <div class="feature-card pt-6 reveal reveal-delay-2">
+          <h3 class="font-serif text-white text-xl mb-4">Collegiate Quadrangle</h3>
+          <p class="text-white/60 leading-relaxed">A horseshoe-shaped plan creates an intimate central courtyard, continuing Rice's tradition of inward-facing residential communities.</p>
+        </div>
+        <div class="feature-card pt-6 reveal reveal-delay-3">
+          <h3 class="font-serif text-white text-xl mb-4">Connected Campus</h3>
+          <p class="text-white/60 leading-relaxed">Covered walkways and shaded arcades integrate naturally with the original Cram, Goodhue & Ferguson campus plan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- THE YURT - COMMONS SECTION -->
+  <!-- ============================================ -->
+  <section class="py-24 md:py-32 px-6 md:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <!-- Image (Left) -->
+        <div class="reveal">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80&fit=crop"
+            alt="Modern interior commons with warm lighting"
+            class="w-full min-h-[400px] md:min-h-[500px] object-cover rounded-sm"
+            loading="lazy"
+            onload="this.classList.add('loaded')"
+          >
+        </div>
+
+        <!-- Text (Right) -->
+        <div class="reveal reveal-delay-1">
+          <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4 font-medium">The Commons</p>
+          <h2 class="font-serif text-navy text-4xl md:text-5xl mb-8 leading-tight">The Yurt</h2>
+          <p class="text-lg leading-relaxed text-text-main mb-6">
+            McMurtry's commons carries its nickname with pride. When Hurricane Ike delayed construction in 2009, the college gathered in a temporary tent. That spirit of resilience gave the circular commons its name. Today, the Yurt stands as the only round commons on Rice's campus, serving as the heart of McMurtry's social life.
+          </p>
+          <p class="text-text-light leading-relaxed">
+            The commons hosts weekly college nights, study breaks, and the traditions that bind each class of McMurtrians together.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- COMMUNITY & TRADITIONS SECTION -->
+  <!-- ============================================ -->
+  <section id="community" class="bg-cream py-24 md:py-32 px-6 md:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="reveal">
+        <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4 font-medium">Community</p>
+        <h2 class="font-serif text-navy text-4xl md:text-5xl mb-16 leading-tight">Traditions That Define Us</h2>
+      </div>
+
+      <div class="community-grid">
+        <!-- Featured Card -->
+        <div class="community-featured relative overflow-hidden rounded-sm min-h-[400px] md:min-h-0 reveal reveal-delay-1">
+          <img
+            src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1200&q=80&fit=crop"
+            alt="Students gathered together in community"
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+            onload="this.classList.add('loaded')"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0C2340]/90 via-[#0C2340]/40 to-transparent"></div>
+          <div class="relative z-10 h-full flex flex-col justify-end p-8 md:p-12">
+            <h3 class="font-serif text-white text-2xl md:text-3xl mb-4">O-Week</h3>
+            <p class="text-white/80 leading-relaxed max-w-lg">
+              Orientation Week is where lifelong friendships begin. Led by experienced coordinators and advisors, new students are welcomed into the McMurtry family through a week of bonding, traditions, and Rice culture.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-navy p-8 md:p-10 rounded-sm flex flex-col justify-center reveal reveal-delay-2">
+          <h3 class="font-serif text-white text-2xl mb-4">McTeam</h3>
+          <p class="text-white/70 leading-relaxed">
+            The student leadership council overseeing college life, events, and governance. From McMinistry to McCourt, student voices shape every aspect of McMurtry.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white p-8 md:p-10 rounded-sm flex flex-col justify-center shadow-sm reveal reveal-delay-3">
+          <h3 class="font-serif text-navy text-2xl mb-4">Affinity Groups</h3>
+          <p class="text-text-light leading-relaxed">
+            Community spaces where students connect over shared identities and interests, fostering belonging within the broader McMurtry family.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- INNOVATION SPACE SECTION -->
+  <!-- ============================================ -->
+  <section id="innovation" class="bg-[#1A1A1A] text-white py-24 md:py-32 px-6 md:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <!-- Text (Left) -->
+        <div class="reveal">
+          <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4 font-medium">Innovation</p>
+          <h2 class="font-serif text-white text-4xl md:text-5xl mb-8 leading-tight">McMurtry Innovation Space</h2>
+          <p class="text-white/60 text-lg leading-relaxed mb-8">
+            An interdisciplinary design space open to all Rice students. Located in Room 107, the MIS supports projects from prototyping to production with professional-grade equipment and collaborative workspace.
+          </p>
+          <p class="text-white/40 text-sm">
+            Open Monday-Thursday & Sunday: 8AM to Midnight. Friday-Saturday: 8AM to 10PM.
+          </p>
+        </div>
+
+        <!-- Image (Right) -->
+        <div class="reveal reveal-delay-1">
+          <img
+            src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=80&fit=crop"
+            alt="Creative workspace with tools and equipment"
+            class="w-full min-h-[350px] md:min-h-[400px] object-cover rounded-sm"
+            loading="lazy"
+            onload="this.classList.add('loaded')"
+          >
+        </div>
+      </div>
+
+      <!-- Equipment Grid -->
+      <div class="grid md:grid-cols-3 gap-10 md:gap-12 mt-16 pt-12 border-t border-white/10">
+        <div class="reveal reveal-delay-1">
+          <h3 class="text-gold text-lg font-bold mb-3">Woodworking</h3>
+          <p class="text-white/50 leading-relaxed">Miter saw and multiple professional saws for material fabrication</p>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <h3 class="text-gold text-lg font-bold mb-3">3D Printing</h3>
+          <p class="text-white/50 leading-relaxed">Rapid prototyping capabilities for design iteration</p>
+        </div>
+        <div class="reveal reveal-delay-3">
+          <h3 class="text-gold text-lg font-bold mb-3">Digital Design</h3>
+          <p class="text-white/50 leading-relaxed">CAD software on high-performance workstations with projector</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- OUR NAMESAKES SECTION -->
+  <!-- ============================================ -->
+  <section class="py-24 md:py-32 px-6 md:px-8">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="reveal">
+        <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4 font-medium">Our Namesakes</p>
+        <h2 class="font-serif text-navy text-4xl md:text-5xl mb-3 leading-tight">Burt & Deedee McMurtry</h2>
+        <p class="text-text-light text-xl mb-12">Rice Class of 1956</p>
+      </div>
+
+      <div class="text-left reveal reveal-delay-1">
+        <p class="text-lg leading-relaxed text-text-main mb-8">
+          Burt McMurtry studied electrical engineering at Rice before earning his master's at Stanford. He went on to become one of Silicon Valley's most respected venture capitalists, backing companies that would reshape the technology landscape, including Microsoft and Compaq. He served seventeen years on Rice University's Board of Governors.
+        </p>
+        <p class="text-lg leading-relaxed text-text-main">
+          Together with Deedee, who volunteers with the American Conservatory Theater, the McMurtrys established endowed professorships and scholarships at Rice. Their generosity made possible the college that now bears their name, a living testament to their belief in the transformative power of residential education.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- RESOURCES SECTION -->
+  <!-- ============================================ -->
+  <section id="resources" class="bg-cream py-24 md:py-32 px-6 md:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="reveal">
+        <p class="text-gold uppercase tracking-[0.3em] text-xs mb-4 font-medium">Resources</p>
+        <h2 class="font-serif text-navy text-3xl md:text-4xl mb-16 leading-tight">Quick Access</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <a href="/resources/roomreservations" class="resource-link bg-white p-6 rounded-sm flex items-center justify-between text-navy font-medium no-underline reveal reveal-delay-1">
+          <span>Room Reservations</span>
+          <span class="text-text-light">&rarr;</span>
+        </a>
+        <a href="/resources/pcardmanagement" class="resource-link bg-white p-6 rounded-sm flex items-center justify-between text-navy font-medium no-underline reveal reveal-delay-1">
+          <span>P-Card Requests</span>
+          <span class="text-text-light">&rarr;</span>
+        </a>
+        <a href="/resources/mcitemscheckout" class="resource-link bg-white p-6 rounded-sm flex items-center justify-between text-navy font-medium no-underline reveal reveal-delay-1">
+          <span>McItems Check Out</span>
+          <span class="text-text-light">&rarr;</span>
+        </a>
+        <a href="/about/financialinclusivity" class="resource-link bg-white p-6 rounded-sm flex items-center justify-between text-navy font-medium no-underline reveal reveal-delay-2">
+          <span>Financial Inclusivity</span>
+          <span class="text-text-light">&rarr;</span>
+        </a>
+        <a href="/resources/mis" class="resource-link bg-white p-6 rounded-sm flex items-center justify-between text-navy font-medium no-underline reveal reveal-delay-2">
+          <span>Innovation Space</span>
+          <span class="text-text-light">&rarr;</span>
+        </a>
+        <a href="/resources/documents" class="resource-link bg-white p-6 rounded-sm flex items-center justify-between text-navy font-medium no-underline reveal reveal-delay-2">
+          <span>McLegislation</span>
+          <span class="text-text-light">&rarr;</span>
+        </a>
+        <a href="/resources/diversityResources" class="resource-link bg-white p-6 rounded-sm flex items-center justify-between text-navy font-medium no-underline reveal reveal-delay-3">
+          <span>Diversity Resources</span>
+          <span class="text-text-light">&rarr;</span>
+        </a>
+        <a href="/resources/workorders" class="resource-link bg-white p-6 rounded-sm flex items-center justify-between text-navy font-medium no-underline reveal reveal-delay-3">
+          <span>Work Orders</span>
+          <span class="text-text-light">&rarr;</span>
+        </a>
+        <a href="/resources/initiativerequests" class="resource-link bg-white p-6 rounded-sm flex items-center justify-between text-navy font-medium no-underline reveal reveal-delay-3">
+          <span>McFUNd Requests</span>
+          <span class="text-text-light">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- FOOTER -->
+  <!-- ============================================ -->
+  <footer class="bg-navy text-white py-16 md:py-20 px-6 md:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-12 md:gap-16">
+        <!-- Col 1: Address -->
+        <div>
+          <p class="font-serif text-2xl mb-4">McMurtry College</p>
+          <p class="text-white/50 text-sm leading-relaxed">
+            MS 761, Rice University<br>
+            1605 Rice Blvd<br>
+            Houston, TX 77005
+          </p>
+        </div>
+
+        <!-- Col 2: Contact -->
+        <div>
+          <p class="text-gold text-sm uppercase tracking-[0.2em] mb-4 font-medium">Contact</p>
+          <p class="text-white/60 text-sm mb-2">(713) 348-4583</p>
+          <p class="text-white/60 text-sm">mcmurtry@rice.edu</p>
+        </div>
+
+        <!-- Col 3: Links -->
+        <div>
+          <p class="text-gold text-sm uppercase tracking-[0.2em] mb-4 font-medium">Links</p>
+          <div class="flex flex-col gap-2">
+            <a href="#" class="text-white/60 text-sm hover:text-gold transition-colors duration-300 no-underline">Donate to McMurtry</a>
+            <a href="#" class="text-white/60 text-sm hover:text-gold transition-colors duration-300 no-underline">Get Directions</a>
+            <a href="#" class="text-white/60 text-sm hover:text-gold transition-colors duration-300 no-underline">Website Feedback</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-white/30 text-sm">Rice University</p>
+        <p class="text-white/30 text-sm">2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================ -->
+  <!-- JAVASCRIPT -->
+  <!-- ============================================ -->
+  <script>
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Nav scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        nav.classList.add('nav-solid');
+      } else {
+        nav.classList.remove('nav-solid');
+      }
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // Close mobile menu if open
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu.classList.contains('open')) {
+          mobileMenu.classList.remove('open');
+        }
+      });
+    });
+
+    // Mobile navigation toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+
+    mobileToggle.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+    });
+
+    mobileClose.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
