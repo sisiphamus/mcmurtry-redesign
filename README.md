@@ -1,27 +1,9 @@
-# McMurtry College Redesign
+# McMurtry College
 
-A redesign of the McMurtry College website at Rice University.
+This is a real redesign for a real place.
 
-McMurtry is Rice's 10th residential college, established in 2009, named for Burt and Deedee McMurtry (Class of 1956). The building was designed by Hopkins Architects, is LEED Gold certified, and features a horseshoe layout with a central courtyard, campfire pit, and rooftop terrace overlooking the Houston skyline.
+McMurtry is Rice University's 10th residential college, established in 2009, designed by Hopkins Architects, LEED Gold certified. Horseshoe layout with a central courtyard and rooftop terrace overlooking the Houston skyline. The existing web presence didn't reflect what the building or the community actually feels like, so I rebuilt it.
 
-The existing web presence didn't capture any of that. This redesign does.
+Navy and gold -- McMurtry's actual colors -- drive the entire palette. The gold even extends to a custom-styled scrollbar. The typography is enormous: Playfair Display at 9xl makes the college name the visual centerpiece, the kind of scale that says *this place matters* before you read a word of body copy. Below that, gradient-overlaid photos sit in an asymmetric CSS grid, and sections reveal on scroll via Intersection Observer.
 
-## What's Here
-
-A fully responsive single-page site featuring:
-
-- **Hero section** with enormous Playfair Display serif typography (up to 9xl) over a gradient-overlaid campus photograph
-- **Architecture section** highlighting the Hopkins Architects design and LEED Gold certification
-- **Community section** with an asymmetric CSS grid layout showcasing college life
-- **Innovation and resources sections** with hover-lift card interactions
-- **Full-screen mobile navigation overlay** with smooth transitions
-- **Scroll-triggered reveal animations** using Intersection Observer
-- **Custom gold scrollbar** matching the college's color identity
-
-## Design Choices
-
-Navy and gold on cream. These are McMurtry's actual colors, not something I picked from a palette generator. Playfair Display for headlines gives the institutional gravitas a university college deserves. The enormous typography in the hero is a deliberate editorial choice, letting the college name itself become the visual centerpiece.
-
-## Tech
-
-Single HTML file, Tailwind CSS (CDN), Google Fonts (Playfair Display + Inter), Intersection Observer API, vanilla JavaScript.
+Single `index.html` file. Tailwind CSS via CDN, Google Fonts, vanilla JavaScript. No framework, no build process.
